@@ -49,57 +49,156 @@ p { margin: 0 0 1em; }
 
 /* ---------- Header ---------- */
 .site-header {
-  position: relative;
-  overflow: hidden;
-  padding-top: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid #f0f0f0;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 100;
 }
 .nav-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
-  z-index: 2;
+  gap: 20px;
 }
 .logo { font-weight: 800; font-size: 1.4rem; letter-spacing: .02em; }
 .nav-links { display: flex; gap: 28px; font-size: .95rem; }
 .nav-links a:hover { color: #e85d2f; }
-.lang { font-size: .85rem; font-weight: 600; }
-.nav-bg-type {
-  position: absolute;
-  top: -30px; left: 50%;
-  transform: translateX(-50%);
-  font-size: clamp(8rem, 22vw, 18rem);
-  font-weight: 900;
-  color: #f5f5f5;
-  letter-spacing: -0.05em;
-  z-index: 1;
-  user-select: none;
-  pointer-events: none;
-}
+.nav-actions { display: flex; gap: 10px; }
+.btn-sm { padding: 10px 18px; font-size: .85rem; }
 
 /* ---------- Hero ---------- */
 .hero {
+  padding: 80px 0 0;
+  overflow: hidden;
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  min-height: 600px;
+}
+.hero-text { padding-bottom: 80px; }
+
+/* Social proof badge */
+.social-proof {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #f7f5f2;
+  border-radius: 999px;
+  padding: 8px 16px 8px 8px;
+  margin-bottom: 24px;
+  font-size: .88rem;
+  color: #444;
+}
+.avatar-stack { display: flex; }
+.avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: linear-gradient(135deg, #e85d2f, #f4a261);
+  margin-left: -6px;
+}
+.avatar:first-child { margin-left: 0; }
+
+.hero-title { font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: .4em; }
+.hero-subtitle { font-size: 1.05rem; color: #555; max-width: 440px; margin-bottom: 0; }
+.hero-text .cta-group { justify-content: flex-start; }
+
+/* Phone mockups */
+.hero-phones {
   position: relative;
-  padding: 140px 0 120px;
-  text-align: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 580px;
 }
-.hero-title { max-width: 900px; margin: 0 auto .4em; }
-.hero-subtitle {
-  font-size: 1.2rem;
-  color: #555;
-  max-width: 620px;
-  margin: 0 auto 2rem;
+.phone-mockup {
+  position: absolute;
+  width: 240px;
+  border-radius: 36px;
+  border: 8px solid #1a1a1a;
+  background: #1a1a1a;
+  overflow: visible;
+  box-shadow: 0 40px 80px rgba(0,0,0,.18);
 }
-.hero .cta-group { justify-content: center; }
-.scroll-cue {
-  margin-top: 4rem;
-  font-size: 1.5rem;
-  color: #999;
-  animation: bounce 2s infinite;
+.phone-back {
+  bottom: 0;
+  left: 0;
+  height: 480px;
+  z-index: 1;
+  transform: rotate(-4deg) translateX(20px);
 }
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(8px); }
+.phone-front {
+  bottom: 30px;
+  right: 0;
+  height: 520px;
+  z-index: 2;
+  transform: rotate(3deg) translateX(-10px);
+}
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  overflow: hidden;
+}
+.screen-map {
+  background: linear-gradient(160deg, #1e3a5f 0%, #2d6a9f 40%, #3d8fbf 70%, #5ba3cc 100%);
+  position: relative;
+}
+.screen-map::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 40% 60%, rgba(232,93,47,.5) 0%, transparent 25%),
+    radial-gradient(circle at 70% 30%, rgba(232,93,47,.3) 0%, transparent 20%),
+    repeating-linear-gradient(45deg, rgba(255,255,255,.03) 0 1px, transparent 1px 20px);
+}
+.screen-route {
+  background: #f7f5f2;
+}
+
+/* Floating labels on back phone */
+.phone-label {
+  position: absolute;
+  background: #fff;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: .78rem;
+  line-height: 1.3;
+  box-shadow: 0 6px 20px rgba(0,0,0,.12);
+  white-space: nowrap;
+  z-index: 5;
+}
+.label-1 { top: 30%; right: -70px; }
+.label-2 { top: 55%; right: -75px; }
+
+/* Route card inside front phone */
+.route-card {
+  position: absolute;
+  bottom: 30px;
+  left: 12px; right: 12px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.1);
+  z-index: 5;
+}
+.route-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: .8rem;
+  color: #333;
+}
+.route-row.accent {
+  background: #1a1a1a;
+  color: #fff;
+  margin: 4px 0;
 }
 
 /* ---------- Sections ---------- */
