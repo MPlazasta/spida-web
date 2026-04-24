@@ -118,24 +118,25 @@ p { margin: 0 0 1em; }
 }
 .phone-mockup {
   position: absolute;
-  width: 240px;
   border-radius: 36px;
   border: 8px solid #1a1a1a;
   background: #1a1a1a;
-  overflow: visible;
+  overflow: hidden;
   box-shadow: 0 40px 80px rgba(0,0,0,.18);
 }
 .phone-back {
   bottom: 0;
   left: 0;
-  height: 480px;
+  width: 220px;
+  height: 476px;
   z-index: 1;
   transform: rotate(-4deg) translateX(20px);
 }
 .phone-front {
   bottom: 30px;
   right: 0;
-  height: 520px;
+  width: 230px;
+  height: 498px;
   z-index: 2;
   transform: rotate(3deg) translateX(-10px);
 }
