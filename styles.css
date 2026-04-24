@@ -144,6 +144,8 @@ p { margin: 0 0 1em; }
   height: 100%;
   border-radius: 28px;
   overflow: hidden;
+  object-fit: cover;
+  display: block;
 }
 .screen-map {
   background: linear-gradient(160deg, #1e3a5f 0%, #2d6a9f 40%, #3d8fbf 70%, #5ba3cc 100%);
@@ -217,6 +219,22 @@ p { margin: 0 0 1em; }
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
+}
+
+/* ---------- Real screenshots ---------- */
+.screenshot-phone {
+  display: block;
+  max-width: 300px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 36px;
+  border: 8px solid #1a1a1a;
+  box-shadow: 0 40px 80px rgba(0,0,0,.18);
+}
+.community-screenshot {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
 }
 
 /* ---------- Media placeholders ---------- */
