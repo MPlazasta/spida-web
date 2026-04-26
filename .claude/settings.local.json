@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:stracks-offroad.com)",
-      "Bash(gh repo *)"
+      "Bash(gh repo *)",
+      "Bash(pandoc \"C:/Users/Mael/Documents/Projets/Claude Code/Spida Web/documents légaux/cgu_spida.docx\" -t markdown)",
+      "PowerShell(pandoc \"C:/Users/Mael/Documents/Projets/Claude Code/Spida Web/documents l�gaux/cgu_spida.docx\" -t markdown)"
     ]
   }
 }
