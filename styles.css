@@ -62,7 +62,8 @@ p { margin: 0 0 1em; }
   justify-content: space-between;
   gap: 20px;
 }
-.logo { font-weight: 800; font-size: 1.4rem; letter-spacing: .02em; }
+.logo { font-weight: 800; font-size: 1.4rem; letter-spacing: .02em; display: flex; align-items: center; gap: 8px; }
+.logo img { width: 30px; height: 30px; border-radius: 7px; display: block; }
 .nav-links { display: flex; gap: 28px; font-size: .95rem; }
 .nav-links a:hover { color: #e85d2f; }
 .nav-actions { display: flex; gap: 10px; }
