@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mon compte — SPIDA</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .account-page {
+      min-height: calc(100vh - 73px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px;
+      background: linear-gradient(160deg, #fff8f4 0%, #ffffff 50%, #f4f8ff 100%);
+    }
+    .account-card {
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.08);
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 440px;
+      text-align: center;
+    }
+    .user-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #e85d2f;
+      color: #ffffff;
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      letter-spacing: 0;
+    }
+    .user-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #1a1a1a;
+    }
+    .user-email {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 0;
+    }
+    .user-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 24px 0;
+      border-top: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+      padding: 20px 0;
+    }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+    }
+    .meta-label { color: #888; }
+    .meta-value { font-weight: 600; color: #1a1a1a; }
+    .account-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .btn-account {
+      display: block;
+      padding: 13px 24px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: inherit;
+      border: 1.5px solid #e5e5e5;
+      background: #ffffff;
+      color: #1a1a1a;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.15s;
+      width: 100%;
+    }
+    .btn-account:hover {
+      background: #f7f5f2;
+      transform: translateY(-1px);
+    }
+    .btn-account-delete {
+      border-color: #ffd5cc;
+      color: #e85d2f;
+    }
+    .btn-account-delete:hover {
+      background: #fff8f6;
+    }
+    .user-id {
+      margin-top: 20px;
+      font-size: 0.68rem;
+      color: #ccc;
+      word-break: break-all;
+      margin-bottom: 0;
+    }
+    .delete-confirm {
+      display: none;
+      background: #fff8f6;
+      border: 1.5px solid #ffd5cc;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: left;
+    }
+    .delete-confirm p {
+      font-size: 0.9rem;
+      color: #444;
+      margin-bottom: 12px;
+    }
+    .delete-confirm-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-confirm-cancel {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1.5px solid #e5e5e5;
+      background: #fff;
+      color: #1a1a1a;
+      font-size: 0.88rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .btn-confirm-delete {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      background: #e85d2f;
+      color: #fff;
+      font-size: 0.88rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .btn-confirm-delete:hover { background: #d04e22; }
+    @media (max-width: 480px) {
+      .account-card { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">SPIDA</a>
+      <nav class="nav-links">
+        <a href="index.html#adventure">L'app</a>
+        <a href="index.html#routing">Navigation</a>
+        <a href="index.html#community">Communauté</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="#" class="btn btn-store btn-sm">App Store</a>
+        <a href="#" class="btn btn-store btn-sm">Google Play</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="account-page">
+    <div class="account-card">
+      <div class="user-avatar" id="user-initial">?</div>
+      <p class="user-name" id="user-name">Chargement…</p>
+      <p class="user-email" id="user-email"></p>
+
+      <div class="user-meta">
+        <div class="meta-row">
+          <span class="meta-label">Membre depuis</span>
+          <span class="meta-value" id="member-since">—</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">Dernière connexion</span>
+          <span class="meta-value" id="last-signin">—</span>
+        </div>
+      </div>
+
+      <div class="account-actions">
+        <button class="btn-account" id="btn-signout">Se déconnecter</button>
+        <button class="btn-account btn-account-delete" id="btn-delete">Supprimer mon compte</button>
+        <div class="delete-confirm" id="delete-confirm">
+          <p>Cette action est irréversible. Toutes vos données seront supprimées définitivement.</p>
+          <div class="delete-confirm-actions">
+            <button class="btn-confirm-cancel" id="btn-cancel">Annuler</button>
+            <button class="btn-confirm-delete" id="btn-confirm">Confirmer la suppression</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="user-id" id="user-id"></p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <h2 class="footer-title">Prêt à rouler en douceur ?</h2>
+      <div class="cta-group">
+        <a href="#" class="btn btn-store">App Store</a>
+        <a href="#" class="btn btn-store">Google Play</a>
+      </div>
+      <nav class="footer-links">
+        <a href="mailto:contact@spida.app">Contact</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="cgu.html">CGU</a>
+        <a href="mentions-legales.html">Mentions légales</a>
+      </nav>
+      <p class="copyright">© 2026 SPIDA. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const { createClient } = supabase;
+    const sb = createClient(
+      'https://ufnrororwpbzqzmsmvyn.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVmbnJvcm9yd3BienF6bXNtdnluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5ODYyMDMsImV4cCI6MjA5MDU2MjIwM30.Kym3CNUcQHQowKAfZ8LgjFkCZ4H-s4rG3Tn7BZ4RsHE'
+    );
+
+    function formatDate(iso) {
+      return new Date(iso).toLocaleDateString('fr-FR', {
+        day: 'numeric', month: 'long', year: 'numeric'
+      });
+    }
+
+    (async () => {
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) {
+        window.location.href = 'connexion.html';
+        return;
+      }
+
+      const user = session.user;
+      const meta = user.user_metadata || {};
+      const name = meta.full_name || meta.name || user.email;
+      const initial = name.charAt(0).toUpperCase();
+
+      document.getElementById('user-initial').textContent = initial;
+      document.getElementById('user-name').textContent = name;
+      document.getElementById('user-email').textContent = user.email;
+      document.getElementById('member-since').textContent = formatDate(user.created_at);
+      document.getElementById('last-signin').textContent = formatDate(user.last_sign_in_at);
+      document.getElementById('user-id').textContent = user.id;
+
+      document.getElementById('btn-signout').addEventListener('click', async () => {
+        await sb.auth.signOut();
+        window.location.href = 'connexion.html';
+      });
+
+      document.getElementById('btn-delete').addEventListener('click', () => {
+        document.getElementById('btn-delete').style.display = 'none';
+        document.getElementById('delete-confirm').style.display = 'block';
+      });
+
+      document.getElementById('btn-cancel').addEventListener('click', () => {
+        document.getElementById('delete-confirm').style.display = 'none';
+        document.getElementById('btn-delete').style.display = 'block';
+      });
+
+      document.getElementById('btn-confirm').addEventListener('click', async () => {
+        document.getElementById('btn-confirm').textContent = 'Suppression…';
+        document.getElementById('btn-confirm').disabled = true;
+
+        const { data: { session: currentSession } } = await sb.auth.getSession();
+        const res = await fetch(
+          'https://ufnrororwpbzqzmsmvyn.supabase.co/functions/v1/delete-account',
+          {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${currentSession.access_token}`,
+              'Content-Type': 'application/json'
+            }
+          }
+        );
+        const result = await res.json();
+
+        if (!res.ok) {
+          alert(result.error || 'Une erreur est survenue. Veuillez réessayer ou contacter contact@spida.app.');
+          document.getElementById('btn-confirm').textContent = 'Confirmer la suppression';
+          document.getElementById('btn-confirm').disabled = false;
+          return;
+        }
+
+        await sb.auth.signOut();
+        window.location.href = 'index.html';
+      });
+    })();
+  </script>
+</body>
+</html>
